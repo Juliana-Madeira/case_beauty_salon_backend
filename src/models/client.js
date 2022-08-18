@@ -8,19 +8,19 @@ const client = new Schema({
     },
     photo: {
         type: String,
-        required: [true, 'Photo is required']
     },
     email: {
         type: String,
-        required: [true, 'Email is required']
+        unique: true,
+        required: [true, 'Email is required'],
+        match: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
     },
-    password: {
+    passwordHash: {
         type: String,
         required: [true, 'Password is required']
     },
     phone: {
         type: String,
-        required: [true, 'Phone is required']
     },
     gender: {
         type: String,
@@ -30,7 +30,10 @@ const client = new Schema({
         type: Date,
         default: Date.now,
     },
-})
+},
+
+    {timestamps: true},
+);
 
 
 module.exports = mongoose.model('Client', client);
